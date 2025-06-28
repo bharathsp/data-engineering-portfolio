@@ -1,0 +1,87 @@
+### **`--network`**
+
+* Connects the container to a specific **Docker network**.
+
+```bash
+docker run --network my_custom_net myapp
+```
+
+---
+
+### **`--build-arg`**
+
+* Passes build-time arguments to the Dockerfile during `docker build`.
+
+```bash
+docker build --build-arg VERSION=1.0 -t myapp .
+```
+
+---
+
+### **`--no-cache`**
+
+* Builds the image **without using cache**.
+
+```bash
+docker build --no-cache -t myapp .
+```
+
+---
+
+### **`-it`**
+
+* Combines `-i` (**interactive**) and `-t` (**TTY**), allowing terminal interaction.
+
+```bash
+docker run -it ubuntu bash
+```
+
+---
+
+### `-f` / `--file`
+
+* **Used with**: `docker build`, `docker-compose`
+* **Purpose**: Specifies the **Dockerfile name or location** if it’s not named `Dockerfile`.
+
+**Example**:
+
+```bash
+docker build -f Dockerfile.dev -t myapp .
+```
+
+➡️ Builds the image using `Dockerfile.dev` instead of the default `Dockerfile`.
+
+**Also used in**:
+
+```bash
+docker-compose -f docker-compose.dev.yml up
+```
+
+➡️ Runs docker-compose using a custom file.
+
+---
+
+### `-u` / `--user`
+
+* **Used with**: `docker run`, `docker exec`
+* **Purpose**: Runs the command/container as a **specific user**.
+
+**Example**:
+
+```bash
+docker run -u 1001:1001 ubuntu whoami
+```
+
+➡️ Runs the container as user ID `1001` and group ID `1001`.
+
+**Another example**:
+
+```bash
+docker exec -u root mycontainer bash
+```
+
+➡️ Executes the command inside the container as the `root` user.
+
+---
+
+### **`ps`**
