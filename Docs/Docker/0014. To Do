@@ -1,0 +1,11 @@
+### **`-it`**
+
+* Combines `-i` (**interactive**) and `-t` (**TTY**), allowing terminal interaction.
+
+```bash
+docker run -it ubuntu bash
+```
+
+---
+
+### **`ps`**
