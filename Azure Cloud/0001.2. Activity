@@ -1,0 +1,38 @@
+## Activity
+
+In **Azure Data Factory (ADF)**, an **Activity** is the **smallest unit of execution** in a pipeline. It defines **a single task** to perform, such as copying data, running a stored procedure, executing a data transformation, or controlling flow logic.
+
+---
+
+### 🔹 Types of Activities in ADF:
+
+Activities are grouped into **three main categories**:
+
+| **Category**            | **Examples**                                                                   | **Purpose**                                                |
+| ----------------------- | ------------------------------------------------------------------------------ | ---------------------------------------------------------- |
+| **Data Movement**       | `Copy Activity`                                                                | Moves data from source to sink (e.g., SQL to Blob Storage) |
+| **Data Transformation** | `Data Flow`, `HDInsight`, `Databricks`, `Stored Procedure`                     | Transforms or processes data                               |
+| **Control Flow**        | `If Condition`, `ForEach`, `Until`, `Wait`, `Set Variable`, `Execute Pipeline` | Manages pipeline logic and workflow                        |
+
+---
+
+### 🔧 Example Use Cases of Activities:
+
+| **Activity**              | **Use Case**                                                   |
+| ------------------------- | -------------------------------------------------------------- |
+| **Copy Activity**         | Transfer data from an on-premise SQL Server to Azure Blob      |
+| **Data Flow Activity**    | Cleanse and transform data using mapping data flows            |
+| **Lookup Activity**       | Fetch configuration or metadata before processing              |
+| **If Condition Activity** | Check a value or status and run different branches accordingly |
+| **ForEach Activity**      | Loop through a list of files or records and process each one   |
+| **Web Activity**          | Call REST APIs to trigger external services                    |
+| **Execute Pipeline**      | Run another pipeline from within the current one               |
+
+---
+
+### 📌 Summary:
+
+* **Activity** = one task or action within a pipeline.
+* A **pipeline** is made up of **multiple activities** executed in sequence or parallel.
+* Activities **consume datasets**, **use linked services**, and can be **parameterized**.
+* Each activity has its own **execution status**, which is visible in **monitoring**.
