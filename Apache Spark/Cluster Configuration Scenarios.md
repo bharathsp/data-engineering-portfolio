@@ -93,125 +93,253 @@ For **multi-wave** execution:
 ---
 
 # Scenario 1
-To process 25GB of data in spark
 
-* a. How many CPU cores are required?
-* b. How many executors are required?
-* c. How much memory is required for each executor?
-* d. What is the total memory required?
+To handle 50GB dataset in spark what are:
+* a. Total number of cores and partitions?
+* b. Total number of executors?
+* c. Total memory required?
 
----
+We’ll assume:
 
-## **Step 1 – Understanding Spark resource calculation**
-
-When deciding Spark resources, you need:
-
-* **Data size** (25 GB given)
-* **Executor memory allocation rule** (leave \~1 GB overhead for Spark/YARN)
-* **Number of cores per executor** (usually 4–5 for optimal parallelism)
-* **Data-to-memory ratio** (rule of thumb: `2x data size` in memory for shuffle/processing overhead)
+* You’re running on **YARN/Standalone** with a moderate cluster.
+* Your dataset size = **50 GB** (uncompressed; if compressed, memory needs can increase after decompression).
+* Each executor core processes **1 partition at a time**.
+* Partition size recommendation = **128 MB** (standard in Spark for parallelism and memory efficiency).
+* Waves = 3
+* Cores / Executor = 5
 
 ---
 
-### **A. Number of CPU Cores**
+## **1. Total Number of Partitions**
 
-**Rule:**
+Formula:
 
-* Spark parallelism works best with **\~4 cores per executor**.
-* **Number of cores total** ≈ `(Data size / Data per core)` × cores per executor.
+$$
+\text{Number of partitions} = \frac{\text{Dataset size in MB}}{\text{Partition size in MB}}
+$$
 
-We need to know **how much data one core should handle**.
-A common guideline is:
+Dataset size in MB:
 
-> 1 core can comfortably handle **2–3 GB** of in-memory data without becoming a bottleneck.
+$$
+50 \times 1024 = 51200\ \text{MB}
+$$
 
-Let’s assume **2.5 GB per core**:
+Number of partitions:
 
-```
-Total cores needed = 25 GB ÷ 2.5 GB = 10 cores
-```
+$$
+\frac{51200}{128} = 400
+$$
 
-✅ **Answer:** **10 CPU cores** (can be split across executors)
-
----
-
-### **B. Number of Executors**
-
-We don’t want 1 giant executor (bad for fault tolerance), so:
-
-* If each executor has **4 cores**:
-
-```
-Executors = Total cores ÷ Cores per executor
-Executors = 10 ÷ 4 = 2.5 ≈ 3 executors
-```
-
-We’ll slightly over-provision, so **3 executors** is fine.
+✅ **Total partitions = 400**
 
 ---
 
-### **C. Memory Required per Executor**
+## **2. Total Number of Cores**
 
-**Rule:**
+Rule: **1 core processes 1 partition at a time**. To maximize CPU usage without excessive context switching, keep cores ≈ partitions / expected parallelism.
 
-* Memory per executor = `(Data per executor × Overhead factor)`
-* Overhead factor: \~1.2 to 2 (due to shuffle, caching, etc.)
-* Also, leave **\~1 GB** for YARN/Mesos overhead.
+Let’s say each executor gets **5 cores** (common choice for balancing CPU and GC overhead).
+If we want to process all partitions in ≈2–3 waves:
 
-First, **data per executor**:
+$$
+\text{Cores needed} \approx \frac{\text{Total partitions}}{\text{Waves}}
+$$
 
-```
-Data per executor = Total data ÷ Number of executors
-= 25 GB ÷ 3 ≈ 8.33 GB
-```
+If waves = 3:
 
-Add **2× overhead** for Spark shuffles:
+$$
+\frac{400}{3} \approx 134\ \text{cores total}
+$$
 
-```
-8.33 GB × 2 = 16.66 GB
-```
-
-Add **1 GB YARN overhead**:
-
-```
-16.66 + 1 ≈ 17.66 GB
-```
-
-We’ll round up to the nearest GB (and often allocate in even GBs):
-✅ **Answer:** **18 GB per executor**
+✅ **\~130–140 cores total** (cluster-wide).
 
 ---
 
-### **D. Total Memory Required**
+## **3. Total Number of Executors**
 
-```
-Total memory = Memory per executor × Number of executors
-= 18 GB × 3 = 54 GB
-```
+Formula:
 
-✅ **Answer:** **54 GB total cluster memory**
+$$
+\text{Executors} = \frac{\text{Total cores}}{\text{Cores per executor}}
+$$
 
----
+If **5 cores/executor**:
 
-## **Final Spark Resource Plan**
+$$
+\frac{135}{5} = 27\ \text{executors}
+$$
 
-| Parameter                  | Value     | Reason                          |
-| -------------------------- | --------- | ------------------------------- |
-| **a. CPU cores**           | **10**    | Based on \~2.5 GB/core          |
-| **b. Executors**           | **3**     | 4 cores/executor rule           |
-| **c. Memory per executor** | **18 GB** | 2× shuffle overhead + 1 GB YARN |
-| **d. Total memory**        | **54 GB** | 18 GB × 3 executors             |
+✅ **\~27 executors**.
 
 ---
 
-## **Extra Tip** 🚀
+## **4. Memory per Executor**
 
-In Spark, this would translate to:
+Rule of thumb:
 
-```bash
---num-executors 3 \
---executor-cores 4 \
---executor-memory 18G
-```
+* Memory per executor ≈ **(Partition size × Cores) × Safety factor**
+* Safety factor: 2–3× (to handle shuffle, intermediate data, caching).
 
-(Since 3 × 4 cores = 12 cores, a bit more than our minimum 10 cores, giving better parallelism.)
+For **5 cores/executor**:
+Raw data per executor wave:
+
+$$
+128 \text{MB} \times 5 = 640\ \text{MB}
+$$
+
+With **3× safety**:
+
+$$
+640 \times 3 \approx 1920\ \text{MB}
+$$
+
+Add overhead (≈ 300–500 MB) → **\~2.5 GB per executor**.
+
+Round up for GC efficiency: **3 GB per executor**.
+
+---
+
+## **5. Total Memory Required**
+
+$$
+\text{Executors} \times \text{Memory per executor}
+$$
+
+$$
+27 \times 3\ \text{GB} = 81\ \text{GB total cluster memory}
+$$
+
+---
+
+### **Final Recommendation for 50 GB Dataset**
+
+| Parameter                  | Value   |
+| -------------------------- | ------- |
+| Total partitions           | 400     |
+| Total cores (cluster-wide) | \~135   |
+| Executors                  | \~27    |
+| Memory per executor        | 3 GB    |
+| **Total memory**           | \~81 GB |
+
+---
+
+# Scenario 2
+To handle 50GB dataset in spark what are:
+* a. Total number of cores and partitions?
+* b. Total number of executors?
+* c. Total memory required?
+
+We’ll assume:
+
+* You’re running on **YARN/Standalone** with a moderate cluster.
+* Your dataset size = **50 GB** (uncompressed; if compressed, memory needs can increase after decompression).
+* Each executor core processes **1 partition at a time**.
+* Partition size recommendation = **128 MB** (standard in Spark for parallelism and memory efficiency).
+* Waves = 1
+* Cores / Executor = 5
+  
+## **1. Total Number of Partitions**
+
+Same formula as before:
+
+$$
+\text{Number of partitions} = \frac{\text{Dataset size (MB)}}{\text{Partition size (MB)}}
+$$
+
+Dataset size in MB:
+
+$$
+50 \times 1024 = 51{,}200\ \text{MB}
+$$
+
+With **128 MB partitions**:
+
+$$
+\frac{51{,}200}{128} = 400\ \text{partitions}
+$$
+
+✅ **Partitions = 400**
+
+---
+
+## **2. Total Number of Cores (1 wave)**
+
+In **1 wave**, each partition gets its own core at the same time:
+
+$$
+\text{Total cores} = \text{Total partitions}
+$$
+
+$$
+\text{Total cores} = 400
+$$
+
+✅ **400 cores needed cluster-wide**
+
+---
+
+## **3. Total Number of Executors**
+
+If we still stick with **5 cores/executor** (good for balancing CPU & GC load):
+
+$$
+\text{Executors} = \frac{400}{5} = 80
+$$
+
+✅ **80 executors**
+
+---
+
+## **4. Memory per Executor**
+
+Rule of thumb:
+Memory per executor ≈ **Partition size × Cores per executor × Safety factor**
+
+* Partition size = 128 MB
+* Cores/executor = 5
+* Safety factor = 3 (to handle shuffle + caching + overhead)
+
+$$
+128 \times 5 = 640\ \text{MB (raw data)}
+$$
+
+$$
+640 \times 3 = 1{,}920\ \text{MB}
+$$
+
+Add ≈ 500 MB overhead → \~2.4 GB
+
+Round to **3 GB/executor**
+
+---
+
+## **5. Total Memory Required**
+
+$$
+\text{Executors} \times \text{Memory per executor}
+$$
+
+$$
+80 \times 3\ \text{GB} = 240\ \text{GB total cluster memory}
+$$
+
+---
+
+### **Final Setup (1 wave)**
+
+| Parameter                | Value  |
+| ------------------------ | ------ |
+| Total partitions         | 400    |
+| Total cores              | 400    |
+| Executors                | 80     |
+| Memory per executor      | 3 GB   |
+| **Total cluster memory** | 240 GB |
+
+---
+
+💡 **Key Difference**
+
+* **1 wave** → All data processed simultaneously → Needs **much more hardware** (400 cores & 240 GB memory).
+* **Multiple waves (e.g., 3)** → Less hardware at once but takes more time.
+
+---
