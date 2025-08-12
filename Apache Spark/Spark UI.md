@@ -255,4 +255,223 @@ Shows same metrics as above but aggregated **per executor**.
 
 ---
 
+## 💾 **Storage Tab**
 
+The **Storage** tab displays the **persisted** `RDDs` and `DataFrames` in the Spark application.
+
+---
+
+### **📌 Summary View**
+
+* 📦 **Storage Level** – e.g., `MEMORY_ONLY`, `MEMORY_ONLY_SER`, `DISK_ONLY`
+* 🧮 **Number of Partitions**
+* 📏 **Size** – Total memory/disk usage
+* 💡 **Note** – Newly persisted RDDs/DataFrames **will not appear** until they are **materialized** via an **action** (e.g., `.count()`, `.collect()`)
+
+---
+
+### **📜 Example**
+
+```scala
+scala> import org.apache.spark.storage.StorageLevel._
+import org.apache.spark.storage.StorageLevel._
+
+scala> val rdd = sc.range(0, 100, 1, 5).setName("rdd")
+rdd: org.apache.spark.rdd.RDD[Long] = rdd MapPartitionsRDD[1] at range at <console>:27
+
+scala> rdd.persist(MEMORY_ONLY_SER)
+res0: rdd.type = rdd MapPartitionsRDD[1] at range at <console>:27
+
+scala> rdd.count
+res1: Long = 100
+
+scala> val df = Seq((1, "andy"), (2, "bob"), (2, "andy")).toDF("count", "name")
+df: org.apache.spark.sql.DataFrame = [count: int, name: string]
+
+scala> df.persist(DISK_ONLY)
+res2: df.type = [count: int, name: string]
+
+scala> df.count
+res3: Long = 3
+```
+
+📊 **Result** – After running this code, the Storage tab will list:
+
+1. **RDD: `rdd`** – Persisted in `MEMORY_ONLY_SER`
+2. **DataFrame: `df`** – Persisted in `DISK_ONLY`
+
+<img width="1892" height="210" alt="image" src="https://github.com/user-attachments/assets/89eb0431-7f0c-4d56-89e6-cd78dd8e7b9c" />
+
+---
+
+### **📄 Detail View**
+
+When you click an RDD/DataFrame name (e.g., **`rdd`**), you see:
+
+* 📍 **Data Distribution** across the cluster
+* ⚙ **Executors** storing each partition
+* 📏 **Partition Sizes**
+* 💾 **Memory/Disk Overhead** per partition
+
+<img width="1900" height="605" alt="image" src="https://github.com/user-attachments/assets/eb9af63f-41d3-4be9-9a3f-f80715a093f3" />
+
+---
+
+## ⚙ **Environment Tab**
+
+The **Environment** tab displays values for various **environment** and **configuration variables**, including **JVM**, **Spark**, and **system properties**. It is useful for verifying if your properties are set correctly.
+
+---
+
+<img width="1880" height="843" alt="image" src="https://github.com/user-attachments/assets/6dc50491-8b11-4014-aae5-840a84ab5a7b" />
+
+### **📌 Sections in Environment Tab**
+
+1. 🏃 **Runtime Information**
+
+   * Versions of **Java**, **Scala**, and other runtime details
+
+2. 🚀 **Spark Properties**
+
+   * Application settings such as:
+
+     * `spark.app.name`
+     * `spark.driver.memory`
+   * ⚠ Properties with prefix `spark.hadoop.*` are shown **here**, not in Hadoop Properties
+
+3. 🗂 **Hadoop Properties** *(clickable link)*
+
+   * Shows properties related to **Hadoop** and **YARN**
+
+<img width="1228" height="389" alt="image" src="https://github.com/user-attachments/assets/f4a958c6-b7a9-499e-97c9-3abc79fd78ae" />
+
+4. 🖥 **System Properties**
+
+   * Detailed **JVM** properties
+
+<img width="1167" height="330" alt="image" src="https://github.com/user-attachments/assets/81fc067e-a4ee-47e8-bd08-1b92fbd38702" />
+
+5. 📚 **Classpath Entries**
+
+   * Lists all loaded classes and their sources
+   * 🔍 Useful for **debugging class conflicts**
+
+<img width="1079" height="213" alt="image" src="https://github.com/user-attachments/assets/4e0165ab-48c2-49c2-86a4-93b12c52a56f" />
+
+---
+
+## 🛠 **Executors Tab**
+
+The **Executors** tab displays **summary information** about all executors created for the Spark application, including **memory/disk usage**, **task statistics**, and **shuffle metrics**.
+
+<img width="2466" height="1354" alt="image" src="https://github.com/user-attachments/assets/abf86b1b-06f2-480b-830b-d957b67a9dc4" />
+
+---
+
+### **📌 Information Displayed**
+
+* 💾 **Storage Memory** – Memory used & reserved for caching data
+* 🧮 **Resource Usage** – Memory, disk, and cores used by each executor
+* 📊 **Performance Metrics** – GC time, shuffle read/write statistics
+
+---
+
+### **🔍 Additional Tools**
+
+* 📜 **Stderr Log**
+
+  * Clicking the **`stderr`** link for **executor 0** opens its **standard error log** in the console
+
+<img width="2510" height="964" alt="image" src="https://github.com/user-attachments/assets/856b6ee6-7105-44f3-ac7f-44ad8e0b0296" />
+
+* 🧵 **Thread Dump**
+
+  * Clicking the **`Thread Dump`** link for **executor 0** shows the **JVM thread dump** for that executor
+  * 🛠 Useful for **performance troubleshooting** and identifying blocked threads
+
+<img width="997" height="563" alt="image" src="https://github.com/user-attachments/assets/98489aba-ba15-4f72-ab6d-c31885aafd50" />
+
+---
+
+Here’s your **SQL Tab** section rewritten with icons and consistent formatting so it matches the previous Spark UI tab descriptions:
+
+---
+
+## 🗄 **SQL Tab**
+
+The **SQL** tab appears when the application executes **Spark SQL queries**. It provides details about **query execution time**, **jobs**, and **plans** (logical & physical) along with the **execution DAG**.
+
+---
+
+### **📌 Example**
+
+```scala
+val df = Seq((1, "andy"), (2, "bob"), (2, "andy")).toDF("count", "name")
+df.count
+df.createGlobalTempView("df")
+
+spark.sql("select name, sum(count) from global_temp.df group by name").show
+```
+
+📊 After running the above, the SQL tab lists the **three DataFrame/SQL operations**.
+Clicking **`show at <console>: 24`** for the last query opens its **DAG** and **execution details**.
+
+---
+
+### **📈 Query Details Page**
+
+* ⏱ **Execution Time & Duration**
+* 🔗 **Associated Jobs**
+* 🗺 **SQL Execution DAG** – Blocks represent execution stages:
+
+  * 🧮 **WholeStageCodegen (1)** – Combines multiple operators (e.g., `LocalTableScan`, `HashAggregate`) into a single compiled Java function for performance
+
+    * Metrics: **Number of Rows**, **Spill Size**
+    * `(1)` = Code generation ID
+  * 🔀 **Exchange** – Shows shuffle metrics such as written records & data size
+
+---
+
+### **🛠 Logical & Physical Plans**
+
+* 📜 **Logical Plan** – Shows how Spark parses & optimizes the query
+* ⚙ **Physical Plan** – Shows execution steps; whole-stage codegen steps are prefixed with `*(ID)`
+
+  * Example: `*(1) LocalTableScan`
+
+---
+
+### **📊 SQL Metrics Overview**
+
+SQL metrics are shown in the **physical operator blocks** and help in analyzing execution:
+
+| 📏 Metric                                | 📝 Meaning                                 | 🛠 Operators                                 |
+| ---------------------------------------- | ------------------------------------------ | -------------------------------------------- |
+| 📄 **Number of Output Rows**             | Rows produced by operator                  | Aggregate, Join, Filter, Scan, etc.          |
+| 📦 **Data Size**                         | Size of broadcast/shuffled/collected data  | BroadcastExchange, ShuffleExchange, Subquery |
+| ⏱ **Time to Collect**                    | Time to gather data                        | BroadcastExchange, Subquery                  |
+| 🔍 **Scan Time**                         | Time spent scanning data                   | ColumnarBatchScan, FileSourceScan            |
+| 🗂 **Metadata Time**                     | Time fetching metadata (partitions, files) | FileSourceScan                               |
+| 📤 **Shuffle Bytes Written**             | Bytes written during shuffle               | CollectLimit, ShuffleExchange                |
+| 📝 **Shuffle Records Written**           | Records written during shuffle             | CollectLimit, ShuffleExchange                |
+| ⏳ **Shuffle Write Time**                 | Time writing shuffle data                  | CollectLimit, ShuffleExchange                |
+| 📦 **Remote Blocks Read**                | Blocks read from remote                    | CollectLimit, ShuffleExchange                |
+| 🌐 **Remote Bytes Read**                 | Bytes read from remote                     | CollectLimit, ShuffleExchange                |
+| 💾 **Remote Bytes Read to Disk**         | Bytes moved from remote to local disk      | CollectLimit, ShuffleExchange                |
+| 📥 **Local Blocks Read**                 | Blocks read locally                        | CollectLimit, ShuffleExchange                |
+| 📏 **Local Bytes Read**                  | Bytes read locally                         | CollectLimit, ShuffleExchange                |
+| ⏳ **Fetch Wait Time**                    | Time waiting for data fetch                | CollectLimit, ShuffleExchange                |
+| 📊 **Records Read**                      | Number of records read                     | CollectLimit, ShuffleExchange                |
+| ⏱ **Sort Time**                          | Time sorting data                          | Sort                                         |
+| 🧠 **Peak Memory**                       | Max memory used                            | Sort, HashAggregate                          |
+| 💿 **Spill Size**                        | Data spilled to disk                       | Sort, HashAggregate                          |
+| 🛠 **Time in Aggregation Build**         | Time building aggregation hash             | HashAggregate                                |
+| 🔍 **Avg Hash Probe Bucket List Iters**  | Avg bucket list iterations during probe    | HashAggregate                                |
+| 📦 **Data Size of Build Side**           | Size of built hash map                     | ShuffledHashJoin                             |
+| ⏳ **Time to Build Hash Map**             | Time building hash map                     | ShuffledHashJoin                             |
+| 📝 **Task Commit Time**                  | Time committing task output                | File-based writes                            |
+| 📜 **Job Commit Time**                   | Time committing job output                 | File-based writes                            |
+| 📤 **Data Sent to Python Workers**       | Bytes sent to Python worker                | Python UDFs, Pandas API                      |
+| 📥 **Data Returned from Python Workers** | Bytes returned from Python worker          | Python UDFs, Pandas API                      |
+
+---
