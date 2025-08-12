@@ -158,10 +158,6 @@ For each stage:
 
 ---
 
-Here’s your **Stages Tab** section rewritten with icons and structured formatting so it matches the style of the **Jobs Tab** and **Jobs Detail** I prepared earlier:
-
----
-
 ## 🎯 **Stages Tab**
 
 The **Stages** tab displays the current state of all stages from all jobs in the Spark application.
