@@ -107,11 +107,7 @@ The **Jobs** tab provides two key views:
 
 ---
 
-Here’s your **Jobs Detail** section rewritten with icons for better readability and structure:
-
----
-
-## 🔎 **Jobs Detail**
+### 🔎 **Jobs Detail**
 
 This page shows details for a specific job identified by its **Job ID**.
 
