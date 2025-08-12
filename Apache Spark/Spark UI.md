@@ -512,25 +512,11 @@ The statistics page provides metrics that give insight into the status and perfo
 
 ⚡**Process Rate** - The aggregate (across all sources) rate at which Spark is processing data.
 
----
+📈 **Input Rows** - The aggregate (across all sources) number of records processed in a trigger.
 
-### 📈
+⏱ **Batch Duration** - The processing duration of each micro-batch.
 
-**Input Rows**
-The aggregate (across all sources) number of records processed in a trigger.
-
----
-
-### ⏱
-
-**Batch Duration**
-The processing duration of each micro-batch.
-
----
-
-### 🛠️
-
-**Operation Duration** — time (ms) spent on tracked operations:
+🛠️ **Operation Duration** — time (ms) spent on tracked operations:
 
 * **🗂 addBatch** — Time to read the micro-batch input from sources, process it, and write output to the sink (usually the largest portion of batch time).
 * **📑 getBatch** — Time to prepare the logical query to read the current micro-batch input.
@@ -538,41 +524,16 @@ The processing duration of each micro-batch.
 * **🗺 queryPlanning** — Time to generate the execution plan.
 * **📝 walCommit** — Time to write offsets to the metadata log (WAL).
 
----
+🌊 **Global Watermark Gap** - The gap between the batch timestamp and the global watermark for the batch.
 
-### 🌊
+📦 **Aggregated Number Of Total State Rows** - The aggregated total number of state rows (across stateful operators and all partitions).
 
-**Global Watermark Gap**
-The gap between the batch timestamp and the global watermark for the batch.
+✏️ **Aggregated Number Of Updated State Rows** - The aggregated number of state rows that were updated in the latest batch.
 
----
+💾 **Aggregated State Memory Used (Bytes)** - The aggregated memory usage (bytes) for state across all executors.
 
-### 📦
-
-**Aggregated Number Of Total State Rows**
-The aggregated total number of state rows (across stateful operators and all partitions).
-
----
-
-### ✏️
-
-**Aggregated Number Of Updated State Rows**
-The aggregated number of state rows that were updated in the latest batch.
-
----
-
-### 💾
-
-**Aggregated State Memory Used (Bytes)**
-The aggregated memory usage (bytes) for state across all executors.
-
----
-
-### 🗑️
-
-**Aggregated Number Of State Rows Dropped By Watermark**
-The aggregated number of state rows removed because they fell behind the watermark.
-
----
+🗑️ **Aggregated Number Of State Rows Dropped By Watermark** - The aggregated number of state rows removed because they fell behind the watermark.
 
 > ⚠️ Note: This statistics page is an early-release feature and is under active development — expect improvements and additional metrics in future Spark releases.
+
+---
