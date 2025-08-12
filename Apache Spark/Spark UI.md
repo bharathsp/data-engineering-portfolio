@@ -406,15 +406,26 @@ The **SQL** tab appears when the application executes **Spark SQL queries**. It 
 ### **📌 Example**
 
 ```scala
-val df = Seq((1, "andy"), (2, "bob"), (2, "andy")).toDF("count", "name")
-df.count
-df.createGlobalTempView("df")
+scala> val df = Seq((1, "andy"), (2, "bob"), (2, "andy")).toDF("count", "name")
+df: org.apache.spark.sql.DataFrame = [count: int, name: string]
 
-spark.sql("select name, sum(count) from global_temp.df group by name").show
+scala> df.count
+res0: Long = 3
+
+scala> df.createGlobalTempView("df")
+
+scala> spark.sql("select name,sum(count) from global_temp.df group by name").show
++----+----------+
+|name|sum(count)|
++----+----------+
+|andy|         3|
+| bob|         2|
++----+----------+
 ```
 
 📊 After running the above, the SQL tab lists the **three DataFrame/SQL operations**.
 Clicking **`show at <console>: 24`** for the last query opens its **DAG** and **execution details**.
+<img width="2546" height="806" alt="image" src="https://github.com/user-attachments/assets/18c2cade-0759-4123-985f-0c58425c8cc4" />
 
 ---
 
@@ -430,14 +441,20 @@ Clicking **`show at <console>: 24`** for the last query opens its **DAG** and **
     * `(1)` = Code generation ID
   * 🔀 **Exchange** – Shows shuffle metrics such as written records & data size
 
+<img width="472" height="1247" alt="image" src="https://github.com/user-attachments/assets/5321cb2d-0737-4714-8ee8-1e47794c7d9b" />
+
 ---
 
 ### **🛠 Logical & Physical Plans**
+
+Clicking the ‘Details’ link on the bottom displays the logical plans and the physical plan
 
 * 📜 **Logical Plan** – Shows how Spark parses & optimizes the query
 * ⚙ **Physical Plan** – Shows execution steps; whole-stage codegen steps are prefixed with `*(ID)`
 
   * Example: `*(1) LocalTableScan`
+
+<img width="1462" height="1212" alt="image" src="https://github.com/user-attachments/assets/6e3e57ba-3510-4ace-94f2-a664d2cc27a9" />
 
 ---
 
@@ -475,3 +492,87 @@ SQL metrics are shown in the **physical operator blocks** and help in analyzing 
 | 📥 **Data Returned from Python Workers** | Bytes returned from Python worker          | Python UDFs, Pandas API                      |
 
 ---
+
+# 📡 Structured Streaming Tab
+
+When running **Structured Streaming** jobs in **micro-batch mode**, a **Structured Streaming** tab appears in the Spark Web UI.
+The **overview page** shows brief stats for running and completed queries and the latest exception for failed queries. Click a **run id** in the tables for detailed statistics.
+
+<img width="1693" height="1820" alt="image" src="https://github.com/user-attachments/assets/40a3add2-05d4-4469-94c5-3c4847f8b812" />
+
+<img width="2132" height="1686" alt="image" src="https://github.com/user-attachments/assets/451e470c-b2fb-4059-a019-a9cf28e19a5f" />
+
+---
+
+## 📊 Structured Streaming Query Statistics (Overview)
+
+The statistics page provides metrics that give insight into the status and performance of your streaming queries. Below are the metrics with icons for quick scanning.
+
+📥**Input Rate** - The aggregate (across all sources) rate of data arriving.
+
+⚡**Process Rate** - The aggregate (across all sources) rate at which Spark is processing data.
+
+---
+
+### 📈
+
+**Input Rows**
+The aggregate (across all sources) number of records processed in a trigger.
+
+---
+
+### ⏱
+
+**Batch Duration**
+The processing duration of each micro-batch.
+
+---
+
+### 🛠️
+
+**Operation Duration** — time (ms) spent on tracked operations:
+
+* **🗂 addBatch** — Time to read the micro-batch input from sources, process it, and write output to the sink (usually the largest portion of batch time).
+* **📑 getBatch** — Time to prepare the logical query to read the current micro-batch input.
+* **📍 latestOffset & getOffset** — Time to query the maximum available offset for the source.
+* **🗺 queryPlanning** — Time to generate the execution plan.
+* **📝 walCommit** — Time to write offsets to the metadata log (WAL).
+
+---
+
+### 🌊
+
+**Global Watermark Gap**
+The gap between the batch timestamp and the global watermark for the batch.
+
+---
+
+### 📦
+
+**Aggregated Number Of Total State Rows**
+The aggregated total number of state rows (across stateful operators and all partitions).
+
+---
+
+### ✏️
+
+**Aggregated Number Of Updated State Rows**
+The aggregated number of state rows that were updated in the latest batch.
+
+---
+
+### 💾
+
+**Aggregated State Memory Used (Bytes)**
+The aggregated memory usage (bytes) for state across all executors.
+
+---
+
+### 🗑️
+
+**Aggregated Number Of State Rows Dropped By Watermark**
+The aggregated number of state rows removed because they fell behind the watermark.
+
+---
+
+> ⚠️ Note: This statistics page is an early-release feature and is under active development — expect improvements and additional metrics in future Spark releases.
