@@ -19,6 +19,8 @@ Think of it like Spark’s **“mission control dashboard”** — it shows you 
 
 ## **2️⃣ Key Tabs in Spark UI**
 
+<img width="1100" height="523" alt="image" src="https://github.com/user-attachments/assets/ad764d7f-a4a0-44dc-9eaa-ca23f9412086" />
+
 | **Tab**         | **What It Shows**                                                                  |
 | --------------- | ---------------------------------------------------------------------------------- |
 | **Jobs**        | High-level list of Spark jobs with status, duration, and links to stages.          |
