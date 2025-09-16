@@ -679,6 +679,11 @@ B. Using Unity Catalog for fine-grained permissions
 ```
 C. The data lakehouse architecture provides a unified platform for all data types with support for both BI and AI workloads.
 D. Data lakehouse architecture offers the benefits of both data warehouses and data lakes by building a data management and formatting layer on top of an open data lake.
+
+Why:
+These describe the core benefits: unifying data types/workloads and combining warehouse/lake advantages.
+The other options mention proprietary formats (not true) and focus too much on AI governance, which isn't the main lakehouse benefit.
+Databricks leverages Unity Catalog to provide a unified governance layer for all data and AI assets housed within the data ecosystem.
 ```
 
 ---
@@ -702,7 +707,10 @@ B. Databricks leverages Unity Catalog to provide a unified governance layer for 
 * D. Unity Catalog is the optimized storage layer that provides the foundation for tables in a lakehouse on Databricks.
 
 ```
-B. Unity Catalog is a data storage solution for managing all your data and AI assets, including structured, semi-structured, and unstructured data.
+A. Unity Catalog provides a single interface to manage platform-wide permissions, audits, and data sharing for all your data and AI governance needs.
+
+Why:
+This is because Unity Catalog is focused on governance, permissions, and unified access management, not storage or AI engines. The other options are incorrect because they confuse storage, intelligence engines, or storage layers with governance.
 ```
 
 ---
@@ -719,6 +727,9 @@ B. Unity Catalog is a data storage solution for managing all your data and AI as
 A. Unified batch and streaming support
 B. Automatic infrastructure management
 D. A declarative ETL framework
+
+Why:
+These are core DLT features. The others are not main DLT benefits.
 ```
 
 ---
@@ -756,7 +767,7 @@ A. To democratize data and AI.
 
 ```
 A. Simplified user experience
-D. Usage cost transparency
+C. Improved reliability
 E. Faster scaling
 ```
 
@@ -769,7 +780,10 @@ E. Faster scaling
 * D. Delta Sharing is a data storage solution that provides additional permissions settings to Unity Catalog.
 
 ```
-A. Delta Sharing is a proprietary sharing tool unique to Databricks that leverages Unity Catalog and Delta Lake for seamless sharing.
+B. Delta Sharing is an open, cross-platform sharing tool that allows for the sharing of data without duplication.
+
+Why:
+This is correct because Delta Sharing is open, not proprietary, and its main benefit is sharing data securely across platforms without copying. The other options are incorrect or too narrow.
 ```
 
 ---
@@ -806,7 +820,10 @@ B. To act as a companion for coding and platform needs throughout the platform U
 * D. To create data visualizations and provide in-the-moment feedback on the accuracy of those visualizations.
 
 ```
-C. To efficiently allow developers to enter comments into their code for easier readability and documentation.
+A. To automatically generate informative table and column comments, improving search and natural language interfaces.
+
+Why:
+This is correct because AI-generated comments in Databricks are mainly for metadata enrichment and better searchability, not for code readability or visualization feedback.
 ```
 
 ---
@@ -843,6 +860,9 @@ B. It extends the cloud well-architected frameworks to the lakehouse, ensuring o
 
 ```
 A. Through AI/BI Genie Spaces and Databricks Assistant, which allow users to interact with data using natural language prompts.
+
+Why:
+This is correct because these tools enable non-technical users to gain insights using plain language, not code or technical steps.
 ```
 
 ---
@@ -909,6 +929,9 @@ D. It’s available on and across multiple cloud platforms
 A. Lakeflow Jobs
 B. Catalog Explorer
 D. Notebooks
+
+Why:
+These are all available features within the Databricks Workspace. Metastore management and Account principals are managed at the account level, not workspace.
 ```
 
 ---
@@ -920,5 +943,8 @@ D. Notebooks
 * D. MosaicAI
 
 ```
-C. Databricks Workflows
+A. Databricks SQL
+
+Why:
+Databricks SQL is the core service for data warehousing on Databricks, enabling SQL analytics and BI workloads. The others are unrelated to core warehousing.
 ```
