@@ -668,5 +668,257 @@ B. Using Unity Catalog for fine-grained permissions
 
 ---
 
-Would you like me to **format this into a PDF exam paper with answers hidden** (so you can take it like a real test and then check later)?
+## Real Exam Questions
 
+**1.** Which two statements provide an explanation of data lakehouse architecture and its benefits?
+* A. The data lakehouse architecture provides a new variety of data warehousing technology, in which cloud-based data is stored in a proprietary format for efficient management.
+* B. Data lakehouse architecture offers the benefit of bridging the gap between multiple existing platforms within a data ecosystem by adding a data governance layer that manages AI data assets.
+* C. The data lakehouse architecture provides a unified platform for all data types with support for both BI and AI workloads.
+* D. Data lakehouse architecture offers the benefits of both data warehouses and data lakes by building a data management and formatting layer on top of an open data lake.
+
+```
+C. The data lakehouse architecture provides a unified platform for all data types with support for both BI and AI workloads.
+D. Data lakehouse architecture offers the benefits of both data warehouses and data lakes by building a data management and formatting layer on top of an open data lake.
+```
+
+---
+
+**2.** How does Databricks support data security and governance across different cloud platforms?
+* A. Databricks leverages the existing cloud provider’s security infrastructure to inherit permissions and governance settings directly.
+* B. Databricks leverages Unity Catalog to provide a unified governance layer for all data and AI assets housed within the data ecosystem.
+* C. Databricks depends on the customer’s preferred or existing data governance tooling in the cloud infrastructure where it is deployed.
+* D. Databricks uses multiple data security and governance tools within the platform to support various use cases and data teams in the platform.
+
+```
+B. Databricks leverages Unity Catalog to provide a unified governance layer for all data and AI assets housed within the data ecosystem.
+```
+
+---
+
+**3.** Which statement describes the role of Unity Catalog within the Databricks Data Intelligence Platform?
+* A. Unity Catalog provides a single interface to manage platform-wide permissions, audits, and data sharing for all your data and AI governance needs.
+* B. Unity Catalog is a data storage solution for managing all your data and AI assets, including structured, semi-structured, and unstructured data.
+* C. Unity Catalog brings together your data with an AI-backed intelligence engine to make AI-assisted data visualization possible.
+* D. Unity Catalog is the optimized storage layer that provides the foundation for tables in a lakehouse on Databricks.
+
+```
+B. Unity Catalog is a data storage solution for managing all your data and AI assets, including structured, semi-structured, and unstructured data.
+```
+
+---
+
+**4.** What are three of the main features and benefits DLT provides to data engineering on Databricks?
+* A. Unified batch and streaming support
+* B. Automatic infrastructure management
+* C. Optimized batch-only processing
+* D. A declarative ETL framework
+* E. Data visualization tooling
+* F. Manual infrastructure fine-tuning support
+
+```
+A. Unified batch and streaming support
+B. Automatic infrastructure management
+D. A declarative ETL framework
+```
+
+---
+
+**5.** What is the mission of Databricks?
+* A. To democratize data and AI.
+* B. To become the leading data and AI company.
+* C. To solve the world's toughest problems with AI.
+* D. To build the best cloud storage platform.
+
+```
+A. To democratize data and AI.
+```
+
+---
+
+**6.** What is the significance of the MosaicML acquisition by Databricks?
+* A. It extended Databricks’s support and capabilities into the hardware infrastructure market.
+* B. It expanded the cloud storage capabilities of the Databricks lakehouse architecture.
+* C. It supported the need for powerful Generative AI models and tools within Databricks.
+* D. It enhanced Databricks’s support for data visualization tooling for broader BI support.
+
+```
+* C. It supported the need for powerful Generative AI models and tools within Databricks.
+```
+
+---
+
+**7.** Which three options are benefits of serverless compute in Databricks?
+* A. Simplified user experience
+* B. Fine-grained and detailed setup
+* C. Improved reliability
+* D. Usage cost transparency
+* E. Faster scaling
+
+```
+A. Simplified user experience
+D. Usage cost transparency
+E. Faster scaling
+```
+
+---
+
+**8.** What is Delta Sharing, and its primary benefit?
+* A. Delta Sharing is a proprietary sharing tool unique to Databricks that leverages Unity Catalog and Delta Lake for seamless sharing.
+* B. Delta Sharing is an open, cross-platform sharing tool that allows for the sharing of data without duplication.
+* C. Delta Sharing securely connects your data with any AI model to create accurate, domain-specific applications.
+* D. Delta Sharing is a data storage solution that provides additional permissions settings to Unity Catalog.
+
+```
+A. Delta Sharing is a proprietary sharing tool unique to Databricks that leverages Unity Catalog and Delta Lake for seamless sharing.
+```
+
+---
+
+**9.** What two options describe benefits of integrating AI into the core of the Databricks Platform?
+* A. Including AI provides an always available customer service tool within the platform for account questions.
+* B. Using AI enhances the user experience with an always-ready AI assistant to support debugging and code enhancement.
+* C. Applying AI helps the platform to understand data structure, usage, and meaning, it helps users boost productivity and optimize workloads.
+* D. Integrating AI provides additional storage optimization on top of the data housed with the cloud storage provider.
+
+```
+B. Using AI enhances the user experience with an always-ready AI assistant to support debugging and code enhancement.
+C. Applying AI helps the platform to understand data structure, usage, and meaning, it helps users boost productivity and optimize workloads.
+```
+
+---
+
+**10.** What is the purpose of Databricks Assistant?
+* A. To manage data storage, to provide financial advice, and to handle hardware issues.
+* B. To act as a companion for coding and platform needs throughout the platform UI.
+* C. To monitor the overall costs of the platform, divided across multiple
+* D. To manage data storage optimization within Delta Lake.
+
+```
+B. To act as a companion for coding and platform needs throughout the platform UI.
+```
+
+---
+
+**11.** What is the role of AI-generated comments in Databricks?
+* A. To automatically generate informative table and column comments, improving search and natural language interfaces.
+* B. To provide reliable search results through the addition of ad hoc descriptions in the results page.
+* C. To efficiently allow developers to enter comments into their code for easier readability and documentation.
+* D. To create data visualizations and provide in-the-moment feedback on the accuracy of those visualizations.
+
+```
+C. To efficiently allow developers to enter comments into their code for easier readability and documentation.
+```
+
+---
+
+**12.** What is the primary function of Databricks Notebooks?
+* A. Databricks Notebooks provide a space to connect with git repositories to manage CI/CD pipelines.
+* B. Databricks Notebooks provide a simple and flexible environment for developing dashboards and visualizations for end users.
+* C. Databricks Notebooks provide a flexible interface for creating reusable and manageable dashboards for reporting and BI.
+* D. Databricks Notebooks provide a collaborative, reproducible environment for data practitioners with support for multiple languages.
+
+```
+D. Databricks Notebooks provide a collaborative, reproducible environment for data practitioners with support for multiple languages.
+```
+
+---
+
+**13.** What is the significance of the Well-Architected Lakehouse framework?
+* A. It is a proprietary development framework for the Databricks Data Intelligence Platform that builds on the structure of the data lakehouse paradigm introduced in 2020.
+* B. It extends the cloud well-architected frameworks to the lakehouse, ensuring operational excellence, security, reliability, performance efficiency, and cost optimization.
+* C. It introduces the lakehouse concept as an entirely new architectural paradigm that replaces traditional cloud frameworks and prioritizes data silos for better isolated processing.
+* D. It builds on the already existing data storage format and structure of data lakes to provide a more robust and beneficial environment to data practitioners with additional tooling and support functionality.
+
+```
+B. It extends the cloud well-architected frameworks to the lakehouse, ensuring operational excellence, security, reliability, performance efficiency, and cost optimization.
+```
+
+---
+
+**14.** How does Databricks support non-technical users in gaining insights from data using natural language?
+* A. Through AI/BI Genie Spaces and Databricks Assistant, which allow users to interact with data using natural language prompts.
+* B. By including one-click connections to data sources that currently exist within the overall data ecosystem for a business.
+* C. With the inclusion of both our Databricks blogs and cloud-specific documentation available through Intelligent Search.
+* D. By providing coding tutorials and prebuilt notebooks, which allows users to have professionally vetted code available in a single click.
+
+```
+A. Through AI/BI Genie Spaces and Databricks Assistant, which allow users to interact with data using natural language prompts.
+```
+
+---
+
+**15.** What is the primary benefit of Delta Lake's support for ACID transactions?
+* A. It increases storage capacity
+* B. It speeds up data duplication
+* C. It enhances data visualization creation
+* D. It ensures data reliability and consistency
+
+```
+D. It ensures data reliability and consistency
+```
+
+---
+
+**16.** What is the core purpose of Databricks Marketplace?
+* A. To provide data assets for training and learning purposes to support Databricks Academy in enabling all users on the platform.
+* B. To provide an open marketplace for data, analytics, and AI products, enabling collaboration and monetization.
+* C. To provide a curated marketplace of verified, approved, and professionally vetted data and AI assets to be purchased as needed.
+* D. To provide a shared data storage solution for collaboration between partners and vendors.
+
+```
+B. To provide an open marketplace for data, analytics, and AI products, enabling collaboration and monetization.
+```
+
+---
+
+**17.** What is the role of Databricks Lakeflow Jobs?
+* A. To manage the cloud platform infrastructure from a single interface within Databricks.
+* B. To orchestrate all types of jobs within the platform, providing control flows, triggers, and monitoring.
+* C. To deliver data from outside sources into the platform through reliable data pipelines.
+* D. To provide a dashboard for monitoring all the costs associated with data flowing in and out of the platform.
+
+```
+B. To orchestrate all types of jobs within the platform, providing control flows, triggers, and monitoring.
+```
+
+---
+
+**18.** Which three of the following benefits are provided directly by Databricks?
+* A. It provides a unified security and governance approach to all data assets
+* B. It’s built on open source and open standards
+* C. It’s efficient on-premises optimized hardware
+* D. It’s available on and across multiple cloud platforms
+* E. It provides scalable and redundant cloud-based data storage
+
+```
+A. It provides a unified security and governance approach to all data assets
+B. It’s built on open source and open standards
+D. It’s available on and across multiple cloud platforms
+```
+
+---
+
+**19.** Which three of the following features are available within the Databricks Workspace?
+* A. Lakeflow Jobs
+* B. Catalog Explorer
+* C. Metastore management
+* D. Notebooks
+* E. Account principals
+
+```
+A. Lakeflow Jobs
+B. Catalog Explorer
+D. Notebooks
+```
+
+---
+
+**20.** Which of the following services or capabilities supports data warehousing capabilities on Databricks
+* A. Databricks SQL
+* B. Lakehouse Federation
+* C. Databricks Workflows
+* D. MosaicAI
+
+```
+C. Databricks Workflows
+```
