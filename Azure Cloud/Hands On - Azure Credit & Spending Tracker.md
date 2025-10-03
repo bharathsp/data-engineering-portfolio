@@ -43,6 +43,8 @@ Before starting, make sure you have:
 
 <img width="1397" height="817" alt="image" src="https://github.com/user-attachments/assets/9ea5da50-85c9-4b0a-8e0b-f6088fb1f073" />
 
+<img width="1916" height="883" alt="image" src="https://github.com/user-attachments/assets/45e90fc2-ae8e-46f6-91eb-19fe651f9840" />
+
 ### Step 4: Download Usage Report (Optional)
 
 * Click **Usage + charges → Download**
