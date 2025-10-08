@@ -61,6 +61,10 @@ Let me walk you through **step-by-step** on how to create an **Azure App Service
   * Click **Create new** → give it a name.
   * Choose **Pricing plan** (e.g., Free F1 for testing, B1 for basic, P1v2 for production).
 
+<img width="582" height="931" alt="image" src="https://github.com/user-attachments/assets/e998ea81-0c70-4fc5-a0d3-5172a102c0ba" />
+
+<img width="593" height="728" alt="image" src="https://github.com/user-attachments/assets/9cebca6b-dd63-4840-8631-0c40ab2b61b5" />
+
 ---
 
 ### **5. Configure Deployment (Optional)**
@@ -69,12 +73,16 @@ Let me walk you through **step-by-step** on how to create an **Azure App Service
 * You can link a **GitHub repo**, **Azure Repos**, or use **manual deployment**.
 * If you skip now, you can configure CI/CD later.
 
+<img width="511" height="933" alt="image" src="https://github.com/user-attachments/assets/3cf6ee9f-54f6-42d8-8613-a41b4b592cd1" />
+
 ---
 
 ### **6. Networking (Optional)**
 
 * Choose whether the app should have **public access** or integrate with a **VNet**.
 * By default → leave as public.
+
+<img width="512" height="551" alt="image" src="https://github.com/user-attachments/assets/28fa1992-6b22-4206-8dcb-7ca2444e9e31" />
 
 ---
 
@@ -83,11 +91,15 @@ Let me walk you through **step-by-step** on how to create an **Azure App Service
 * Enable **Application Insights** (recommended) to collect logs, performance data, and failures.
 * Choose region for Insights (ideally same as App Service region).
 
+<img width="530" height="935" alt="image" src="https://github.com/user-attachments/assets/d3f79725-452a-4b08-aeea-be736105d77e" />
+
 ---
 
 ### **8. Tags (Optional)**
 
 * Add tags for cost tracking (e.g., `Dept=Finance`, `Project=WebApp`).
+
+<img width="585" height="361" alt="image" src="https://github.com/user-attachments/assets/7ab46238-2716-46d7-8c08-81667a352e66" />
 
 ---
 
@@ -96,6 +108,10 @@ Let me walk you through **step-by-step** on how to create an **Azure App Service
 * Azure will validate your settings.
 * Click **Create**.
 * Deployment takes a few minutes.
+
+<img width="527" height="944" alt="image" src="https://github.com/user-attachments/assets/b4672202-ecf1-4be0-8ece-8c0808e0026e" />
+
+<img width="582" height="598" alt="image" src="https://github.com/user-attachments/assets/9a40119c-161f-46e9-8de5-196593d5b17a" />
 
 ---
 
@@ -108,6 +124,10 @@ Let me walk you through **step-by-step** on how to create an **Azure App Service
   https://<appname>.azurewebsites.net
   ```
 * Open it to check your app is running (you’ll see a default Azure welcome page if you haven’t deployed code yet).
+
+<img width="586" height="911" alt="image" src="https://github.com/user-attachments/assets/6f9e0796-5054-44f7-a69f-c77c460c70c9" />
+
+<img width="544" height="1044" alt="image" src="https://github.com/user-attachments/assets/07fbd316-bf66-4de5-85a7-c3d4f4ddf88f" />
 
 ---
 
@@ -126,5 +146,3 @@ You can deploy using:
 ✅ Now your web app / API is live!
 
 ---
-
-⚡ Do you want me to also give you **step-by-step using Azure CLI** (instead of portal), so you can automate App Service creation in scripts?
